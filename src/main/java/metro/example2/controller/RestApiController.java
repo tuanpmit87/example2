@@ -42,7 +42,7 @@ public class RestApiController {
             );
         }
         
-        Map<String, Object> response = new HashMap<>();;
+        Map<String, Object> response = new HashMap<>();
         response.put("data", postList);
         return new ResponseEntity(response, HttpStatus.OK);
     }
