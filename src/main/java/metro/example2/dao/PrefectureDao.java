@@ -1,6 +1,7 @@
 package metro.example2.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class PrefectureDao extends JdbcDaoSupport {
 
     @Autowired
-    public PrefectureDao(DataSource dataSource) {
+    public PrefectureDao(@Qualifier("dataSource") DataSource dataSource) {
         this.setDataSource(dataSource);
     }
 
@@ -31,7 +32,6 @@ public class PrefectureDao extends JdbcDaoSupport {
                 " INNER JOIN tbl_prefecture pref ON pref.prefecture_id = city.prefecture_id" +
                 " WHERE pref.prefecture_code = ?";
 
-        List<Map<String, Object>> prefList = this.getJdbcTemplate().queryForList(sql, new Object[] { prefCode });
-        return prefList;
+        return this.getJdbcTemplate().queryForList(sql, prefCode);
     }
 }

@@ -41,10 +41,8 @@ public class RestApiController {
                 HttpStatus.NOT_FOUND
             );
         }
-        
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", postList);
-        return new ResponseEntity(response, HttpStatus.OK);
+
+        return getResponseEntity(postList);
     }
 
     @RequestMapping(value = "/prefectures/{prefCode}", method = RequestMethod.GET)
@@ -65,8 +63,12 @@ public class RestApiController {
             );
         }
 
-        Map<String, Object> response = new HashMap<>();;
-        response.put("data", prefList);
+        return getResponseEntity(prefList);
+    }
+
+    private ResponseEntity<?> getResponseEntity(List<Map<String, Object>> data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", data);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 }
